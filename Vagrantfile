@@ -1,4 +1,6 @@
 VAGRANTFILE_API_VERSION = "2"
+Vagrant.require_plugin "vagrant-reload"
+
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "ubuntu/trusty64"
@@ -25,6 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   config.vm.provision "shell", path: "script.sh"
+  onfig.vm.provision :reload
   
 
   config.vm.provider :virtualbox do |vb|
