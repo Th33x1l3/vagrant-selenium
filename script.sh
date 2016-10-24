@@ -5,7 +5,7 @@
 echo "Install the packages..."
 #=========================================================
 sudo apt-get update
-sudo apt-get -y install fluxbox xorg unzip vim default-jre rungetty firefox
+sudo apt-get -y install fluxbox xorg unzip nano default-jre rungetty firefox 
 
 #=========================================================
 echo "Set autologin for the Vagrant user..."
@@ -45,7 +45,7 @@ echo "Download latest chrome driver..."
 #=========================================================
 CHROMEDRIVER_VERSION=$(curl "http://chromedriver.storage.googleapis.com/LATEST_RELEASE")
 wget "http://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
-unzip chromedriver_linux64.zip
+unzip -f chromedriver_linux64.zip
 sudo rm chromedriver_linux64.zip
 chown vagrant:vagrant chromedriver
 
