@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   config.vm.provision "shell", path: "script.sh"
-  onfig.vm.provision :reload
+  config.vm.provision :reload
   
 
   config.vm.provider :virtualbox do |vb|
