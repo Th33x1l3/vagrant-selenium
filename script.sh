@@ -6,25 +6,6 @@ echo "Install the packages..."
 #=========================================================
 sudo apt-get update
 sudo apt-get -y install fluxbox xorg unzip nano default-jre rungetty firefox 
-
-#=========================================================
-echo "Set autologin for the Vagrant user..."
-#=========================================================
-sudo sed -i '$ d' /etc/init/tty1.conf
-sudo echo "exec /sbin/rungetty --autologin vagrant tty1" >> /etc/init/tty1.conf
-
-#=========================================================
-echo -n "Start X on login..."
-#=========================================================
-PROFILE_STRING=$(cat <<EOF
-if [ ! -e "/tmp/.X0-lock" ] ; then
-    startx
-fi
-EOF
-)
-echo "${PROFILE_STRING}" >> .profile
-echo "ok"
-
 #=========================================================
 echo "Download the latest chrome..."
 #=========================================================
@@ -50,40 +31,14 @@ sudo rm chromedriver_linux64.zip
 chown vagrant:vagrant chromedriver
 
 #=========================================================
-echo -n "Install tmux scripts..."
+echo "Download and build latests ruby"
 #=========================================================
-TMUX_SCRIPT=$(cat <<EOF
-#!/bin/sh
-tmux start-server
-
-tmux new-session -d -s selenium
-tmux send-keys -t selenium:0 './chromedriver' C-m
-
-tmux new-session -d -s chrome-driver
-tmux send-keys -t chrome-driver:0 'java -jar selenium-server-standalone.jar' C-m
-EOF
-)
-echo "${TMUX_SCRIPT}"
-echo "${TMUX_SCRIPT}" > tmux.sh
-chmod +x tmux.sh
-chown vagrant:vagrant tmux.sh
-echo "ok"
-
-#=========================================================
-echo -n "Install startup scripts..."
-#=========================================================
-STARTUP_SCRIPT=$(cat <<EOF
-#!/bin/sh
-~/tmux.sh &
-xterm &
-EOF
-)
-echo "${STARTUP_SCRIPT}" > /etc/X11/Xsession.d/9999-common_start
-chmod +x /etc/X11/Xsession.d/9999-common_start
-echo "ok"
-
-#=========================================================
-echo -n "Add host alias..."
-#=========================================================
-echo "192.168.33.1 host" >> /etc/hosts
-echo "ok"
+sudo apt update
+sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev
+wget "https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz"
+tar -xzvf ruby-2.3.1.tar.gz
+cd ./ruby-2.3.1
+./configure
+make 
+sudo make install
+gem install bundler
