@@ -1,4 +1,4 @@
-lVAGRANTFILE_API_VERSION = "2"
+VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_plugin "vagrant-reload"
 
 
