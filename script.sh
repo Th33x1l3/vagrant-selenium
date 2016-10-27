@@ -2,10 +2,17 @@
 #=========================================================
 
 #=========================================================
+echo "Some clean up..."
+#=========================================================
+apt-get update && apt-get upgrade -y && apt-get autoremove && apt-get autoclean
+
+
+
+#=========================================================
 echo "Install the packages..."
 #=========================================================
-sudo apt-get update
-sudo apt-get -y install fluxbox xorg unzip nano default-jre rungetty firefox 
+
+sudo apt-get -y install fluxbox xorg unzip nano default-jre rungetty firefox autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev subversion git xvfb
 #=========================================================
 echo "Download the latest chrome..."
 #=========================================================
@@ -33,8 +40,6 @@ chown vagrant:vagrant chromedriver
 #=========================================================
 echo "Download and build latests ruby"
 #=========================================================
-sudo apt update
-sudo apt install autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev
 wget "https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz"
 tar -xzvf ruby-2.3.1.tar.gz
 cd ./ruby-2.3.1
@@ -42,3 +47,23 @@ cd ./ruby-2.3.1
 make 
 sudo make install
 gem install bundler
+
+#=========================================================
+echo "Add Jenkins user"
+#=========================================================
+sudo adduser --disabled-password --gecos '' jenkins
+sudo adduser jenkins sudo
+export APP_HOME="/home/jenkins/app"
+
+su jenkins
+echo "gem: --no-rdoc --no-ri" >> /home/jenkins/.gemrc
+mkdir /home/jenkins/.subversion
+
+echo "[global]" >> /home/jenkins/.subversion/servers
+echo "store-plaintext-passwords=off" >> /home/jenkins/.subversion/servers
+sudo echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users
+mkdir ~/app
+
+#=========================================================
+echo "ALL DONE!!!"
+#=========================================================

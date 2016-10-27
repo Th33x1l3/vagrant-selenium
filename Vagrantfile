@@ -3,7 +3,10 @@ Vagrant.require_plugin "vagrant-reload"
 
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "ubuntu/xenial64"
+	# default ubuntu/xenial64 changed user from vagrant:vagrabt to ubuntu:<some pass nobody knows>
+	# so we're using a external source that is doing a good job, at least by vagrant user community checks  
+  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.network "private_network", ip: "192.168.50.4"
   
   
   puts "proxyconf..."
