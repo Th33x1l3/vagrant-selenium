@@ -44,13 +44,11 @@ mv ./selenium-server-standalone.jar /usr/bin/
 #=========================================================
 echo "*** Download latest chrome driver..."
 #=========================================================
-a=$(sudo uname -m) &&
 rm -r /tmp/chromedriver/
 mkdir /tmp/chromedriver/ &&
-wget -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE &&
-if [ $a == i686 ]; then b=32; elif [ $a == x86_64 ]; then b=64; fi &&
+wget -q -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE &&
 latest=$(cat /tmp/chromedriver/LATEST_RELEASE) &&
-wget -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux'$b'.zip' &&
+wget -q -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux64.zip' &&
 sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ &&
 echo 'success?'
 
