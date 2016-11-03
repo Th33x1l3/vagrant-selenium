@@ -6,7 +6,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# default ubuntu/xenial64 changed user from vagrant:vagrabt to ubuntu:<some pass nobody knows>
 	# so we're using a external source that is doing a good job, at least by vagrant user community checks  
   config.vm.box = "bento/ubuntu-16.04"
-  config.vm.network "private_network", ip: "192.168.50.4"
+  config.vm.network :public_network, bridge: "enp4s0"
   
   
   puts "proxyconf..."
@@ -26,7 +26,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   
   config.vm.provision "shell", path: "script.sh"
-  config.vm.provision :reload
   
 
   config.vm.provider :virtualbox do |vb|
