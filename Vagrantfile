@@ -42,5 +42,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.gui = false
     vb.cpus = 2
     vb.memory=2048
+    vb.name = "vagrant_selenium"
   end
 end
