@@ -1,6 +1,16 @@
 VAGRANTFILE_API_VERSION = "2"
-Vagrant.require_plugin "vagrant-reload"
 
+required_plugins = %w(vagrant-proxyconf vagrant-cachier vagrant-vbguest vagrant-reload)
+
+plugins_to_install = required_plugins.select { |plugin| not Vagrant.has_plugin? plugin }
+if not plugins_to_install.empty?
+  puts "Installing plugins: #{plugins_to_install.join(' ')}"
+  if system "vagrant plugin install #{plugins_to_install.join(' ')}"
+    exec "vagrant #{ARGV.join(' ')}"
+  else
+    abort "Installation of one or more plugins has failed. Aborting."
+  end
+end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# default ubuntu/xenial64 changed user from vagrant:vagrabt to ubuntu:<some pass nobody knows>
