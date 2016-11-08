@@ -18,7 +18,7 @@ sudo apt-get -y install fluxbox xorg unzip nano default-jre rungetty firefox aut
 #=========================================================
 echo "*** Download and build latests ruby"
 #=========================================================
-wget -q "https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz"
+wget -q --progress=bar:force "https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz"
 tar -xzvf ruby-2.3.1.tar.gz
 cd ./ruby-2.3.1
 ./configure
@@ -29,7 +29,7 @@ gem install bundler
 #=========================================================
 echo "Download the latest chrome..."
 #=========================================================
-wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+wget -q --progress=bar:force "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo rm google-chrome-stable_current_amd64.deb
 sudo apt-get install -y -f
@@ -38,7 +38,7 @@ sudo apt-get install -y -f
 echo "*** Download latest selenium server..."
 #=========================================================
 SELENIUM_VERSION=$(curl "https://selenium-release.storage.googleapis.com/" | perl -n -e'/.*<Key>([^>]+selenium-server-standalone[^<]+)/ && print $1')
-wget -q "https://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}" -O selenium-server-standalone.jar
+wget -q --progress=bar:force "https://selenium-release.storage.googleapis.com/${SELENIUM_VERSION}" -O selenium-server-standalone.jar
 mv ./selenium-server-standalone.jar /usr/bin/
 
 #=========================================================
@@ -46,9 +46,9 @@ echo "*** Download latest chrome driver..."
 #=========================================================
 rm -r /tmp/chromedriver/
 mkdir /tmp/chromedriver/ &&
-wget -q -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE &&
+wget -q --progress=bar:force -O /tmp/chromedriver/LATEST_RELEASE http://chromedriver.storage.googleapis.com/LATEST_RELEASE &&
 latest=$(cat /tmp/chromedriver/LATEST_RELEASE) &&
-wget -q -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux64.zip' &&
+wget -q --progress=bar:force -O /tmp/chromedriver/chromedriver.zip 'http://chromedriver.storage.googleapis.com/'$latest'/chromedriver_linux64.zip' &&
 sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ &&
 echo 'success?'
 
