@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# so we're using a external source that is doing a good job, at least by vagrant user community checks  
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.network :public_network, bridge: "enp4s0"
+
   
   
   puts "proxyconf..."
@@ -34,9 +35,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       config.proxy.no_proxy = ENV["no_proxy"]
     end
   end
-  
+
+  config.vm.define 'vagrant_selenium'  
   config.vm.provision "shell", path: "script.sh"
   
+
 
   config.vm.provider :virtualbox do |vb|
     vb.gui = false
