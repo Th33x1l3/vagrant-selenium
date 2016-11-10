@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 	# so we're using a external source that is doing a good job, at least by vagrant user community checks  
   config.vm.box = "bento/ubuntu-16.04"
   config.vm.network :public_network, bridge: "enp4s0"
+  config.vm.boot_timeout 360
 
   
   
