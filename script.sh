@@ -16,6 +16,16 @@ sudo apt-get -y install fluxbox xorg unzip nano default-jre rungetty firefox aut
 
 
 #=========================================================
+echo "Download Java8 for jar files (swarm jar )"
+#=========================================================
+echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+echo "Setting environment variables for Java 8.."
+sudo apt-get install -y oracle-java8-set-default
+
+#=========================================================
 echo "*** Download and build latests ruby"
 #=========================================================
 wget -q --progress=bar:force "https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz"
@@ -58,7 +68,6 @@ echo 'success?'
 echo "Add Jenkins user"
 #=========================================================
 sudo adduser --disabled-password --gecos '' jenkins
-sudo passwd -d jenkins
 sudo adduser jenkins sudo
 export APP_HOME="/home/jenkins/app"
 
@@ -72,6 +81,17 @@ echo "store-plaintext-passwords=off" >> /home/jenkins/.subversion/servers
 sudo echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users
 mkdir /home/jenkins/app
 sudo chown -R jenkins:jenkins /home/jenkins/app
+
+
+
+
+#=========================================================
+echo "Download jenkins swarm client" 
+#=========================================================
+
+wget -q "https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/2.2/swarm-client-2.2-jar-with-dependencies.jar" -O "/home/jenkins/swarm-client.jar"
+java -jar /home/jenkins/swarm-client.jar -master http://192.168.105.87:8080/jenkins/ -username admin -password G33kprogrammer  -retry 5
+
 #=========================================================
 echo "ALL DONE!!!"
 #=========================================================
