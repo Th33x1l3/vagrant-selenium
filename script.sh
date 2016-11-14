@@ -4,16 +4,9 @@
 #=========================================================
 echo "Some clean up..."
 #=========================================================
-sudo dpkg --configure -a
-sudo apt-get -f install
-sudo apt-get --fix-missing install
-sudo apt-get clean
-sudo apt-get update
-sudo apt-get upgrade
-sudo apt-get dist-upgrade
-sudo apt-get install build-essential
-sudo apt-get clean
-sudo apt-get autoremove
+dpkg --configure -a
+apt-get -f install && apt-get --fix-missing install && apt-get clean
+apt-get update && apt-get dist-upgrade
 
 echo progress-bar >> ~/.curlrc
 
@@ -69,7 +62,7 @@ cd ../
 echo "Download the latest chrome..."
 #=========================================================
 wget -q --progress=bar:force "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-sudo apt install ./google-chrome-stable_current_amd64.deb
+sudo apt install -y ./google-chrome-stable_current_amd64.deb
 sudo rm google-chrome-stable_current_amd64.deb
 sudo apt-get install -y -f
 
@@ -120,6 +113,12 @@ echo "store-plaintext-passwords=off" >> /home/jenkins/.subversion/servers
 sudo echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users
 mkdir /home/jenkins/app
 sudo chown -R jenkins:jenkins /home/jenkins/app
+
+#=========================================================
+echo clean up things
+#=========================================================
+exit
+apt-get autoremove
 
 #=========================================================
 echo "ALL DONE!!!"
