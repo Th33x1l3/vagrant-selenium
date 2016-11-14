@@ -37,7 +37,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define 'vagrant_selenium'  
+  config.vm.define 'vagrant_selenium' 
+   
   config.vm.provision "shell", path: "script.sh"
   
 
