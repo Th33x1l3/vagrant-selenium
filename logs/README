@@ -1,0 +1,2 @@
+Execution logs goes here
+(copy from execution path to mounted /vagrant/logs, so after vm shutdown they're acessible)
