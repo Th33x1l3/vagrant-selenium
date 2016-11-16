@@ -11,12 +11,17 @@ apt-get update && apt-get dist-upgrade
 echo progress-bar >> ~/.curlrc
 
 
+#=========================================================
+echo 'Set folder permissions on shared folders - logs, reports'
+#========================================================
+chmod 755 /vagrant/reports
+chmod 775 /vagrant/logs
 
 #=========================================================
 echo "Install the packages..."
 #=========================================================
 
-sudo apt-get -y install fluxbox xorg zip unzip nano rungetty firefox autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev subversion git xvfb ruby gnupg2
+sudo apt-get -y install fluxbox xorg zip unzip nano rungetty firefox autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm3 libgdbm-dev subversion git xvfb ruby gnupg2 openssh-client
 
 
 #=========================================================
@@ -113,6 +118,8 @@ echo "store-plaintext-passwords=off" >> /home/jenkins/.subversion/servers
 sudo echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users
 mkdir /home/jenkins/app
 sudo chown -R jenkins:jenkins /home/jenkins/app
+
+
 
 #=========================================================
 echo clean up things
