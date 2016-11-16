@@ -14,8 +14,8 @@ echo progress-bar >> ~/.curlrc
 #=========================================================
 echo 'Set folder permissions on shared folders - logs, reports'
 #========================================================
-chmod 755 /vagrant/reports
-chmod 775 /vagrant/logs
+chmod 777 /vagrant/reports
+chmod 777 /vagrant/logs
 
 #=========================================================
 echo "Install the packages..."
