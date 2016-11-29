@@ -19,6 +19,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.network :public_network, bridge: "enp4s0"
   config.vm.boot_timeout = 360
 
+  config.ssh.insert_key = false
   
   
   puts "proxyconf..."
@@ -40,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.define 'vagrant_selenium' 
    
   config.vm.provision "shell", path: "script.sh"
-  
+  config.vm.provision "shell", path: "clearscript.sh"
 
 
   config.vm.provider :virtualbox do |vb|

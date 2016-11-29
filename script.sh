@@ -6,16 +6,9 @@ echo "Some clean up..."
 #=========================================================
 dpkg --configure -a
 apt-get -f install && apt-get --fix-missing install && apt-get clean
-apt-get update && apt-get dist-upgrade
+apt-get update && apt-get -y dist-upgrade
 
 echo progress-bar >> ~/.curlrc
-
-
-#=========================================================
-echo 'Set folder permissions on shared folders - logs, reports'
-#========================================================
-chmod 777 /vagrant/reports
-chmod 777 /vagrant/logs
 
 #=========================================================
 echo "Install the packages..."
@@ -99,27 +92,12 @@ wget -q --progress=bar:force -O /tmp/chromedriver/chromedriver.zip 'http://chrom
 sudo unzip /tmp/chromedriver/chromedriver.zip chromedriver -d /usr/local/bin/ &&
 echo 'success?'
 
+echo "gem: --no-rdoc --no-ri" >> /home/vagrant/.gemrc
 
+echo "[global]" >> $HOME/.subversion/servers
+echo "store-plaintext-passwords=off" >> $HOME/.subversion/servers
 
-#=========================================================
-echo "Add Jenkins user"
-#=========================================================
-sudo adduser --disabled-password --gecos '' jenkins
-sudo adduser jenkins sudo
-export APP_HOME="/home/jenkins/app"
-
-su jenkins
-echo "gem: --no-rdoc --no-ri" >> /home/jenkins/.gemrc
-mkdir /home/jenkins/.subversion
-
-
-echo "[global]" >> /home/jenkins/.subversion/servers
-echo "store-plaintext-passwords=off" >> /home/jenkins/.subversion/servers
-sudo echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/90-cloud-init-users
-mkdir /home/jenkins/app
-sudo chown -R jenkins:jenkins /home/jenkins/app
-
-
+mkdir /home/vagrant/app
 
 #=========================================================
 echo clean up things
