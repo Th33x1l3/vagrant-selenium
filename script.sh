@@ -97,14 +97,11 @@ echo "gem: --no-rdoc --no-ri" >> /home/vagrant/.gemrc
 echo "[global]" >> $HOME/.subversion/servers
 echo "store-plaintext-passwords=off" >> $HOME/.subversion/servers
 
-mkdir /home/vagrant/app
+#=========================================================
+echo "*** Prepare execution folder"
+#=========================================================
+mkdir -p /home/vagrant/app
 
 #=========================================================
-echo clean up things
-#=========================================================
-exit
-apt-get autoremove
-
-#=========================================================
-echo "ALL DONE!!!"
+echo "ALL INSTALL PREPARATION DONE!!!"
 #=========================================================

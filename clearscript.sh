@@ -1,19 +1,19 @@
 #!/bin/bash
 
 #==================================================================
-# Remove build files
+echo 'Remove build files'
 #==================================================================
 rm -fr /home/vagrant/ruby*
 rm -fr /home/vagrant/geckodriver*
 
 #==================================================================
-# Remove APT cache
+echo  'Remove APT cache'
 #==================================================================
 apt-get clean -y
 apt-get autoclean -y
 
 #==================================================================
-# Zero free space to aid VM compression
+echo 'Zero free space to aid VM compression'
 #==================================================================
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
@@ -26,12 +26,12 @@ rm -f /root/.bash_history
 rm -f /home/vagrant/.bash_history
 
 #==================================================================
-# Cleanup log files
+echo 'Cleanup log files'
 #==================================================================
 find /var/log -type f | while read f; do echo -ne '' > $f; done;
 
 #==================================================================
-# Whiteout root
+echo 'Whiteout root'
 #==================================================================
 count=`df --sync -kP / | tail -n1  | awk -F ' ' '{print $4}'`; 
 let count--
@@ -39,7 +39,7 @@ dd if=/dev/zero of=/tmp/whitespace bs=1024 count=$count;
 rm /tmp/whitespace;
  
 #==================================================================
-# Whiteout /boot
+echo 'Whiteout /boot'
 #==================================================================
 count=`df --sync -kP /boot | tail -n1 | awk -F ' ' '{print $4}'`;
 let count--
@@ -53,3 +53,7 @@ if [ "$swappart" != "" ]; then
   mkswap $swappart;
   swapon $swappart;
 fi
+
+#==================================================================
+echo 'ALL CLEANUP DONE'
+#==================================================================
